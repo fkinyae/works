@@ -17,6 +17,9 @@
 
                 <h2>{% block tittle  %} My Profile {% endblock %}</h2>
                 <img class="rounded-circle " src="{{user.profile.profile_pic.url}}"  id="profile_pic" alt="">
+                <div>
+                    <a href="" class="btn btn-primary">Update Profile</a>
+                </div>
                 <hr>
 
                 <div class="row">
@@ -35,15 +38,11 @@
                     <div class="col-md-4">
                         <p style="font-weight: bold;">Last Name: </p>
                         {{user.last_name}}
-                        <p style="font-weight: bold;">Website: </p>
-                        {{user.profile.website_url}}
                         <p style="font-weight: bold;">Twitter: </p>
                         {{user.profile.twitter_url}}
                         <p style="font-weight: bold;">Date Joined: </p>
                         {{user.date_joined}}
-                        <div>
-                            <a href="{% url 'edit-profile' %}" class="btn btn-primary">Update Profile</a>
-                        </div>
+                        
 
                     </div>
                     <hr>
