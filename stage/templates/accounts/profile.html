@@ -16,9 +16,11 @@
     {% if user.is_authenticated  %}
 
                 <h2>{% block tittle  %} My Profile {% endblock %}</h2>
-                <img class="rounded-circle " src="{{user.profile.profile_pic.url}}"  id="profile_pic" alt="">
+                
+                <img class="rounded-circle " src="{{user.profile.profile_pic.url}}"  id="profile_pic" alt="You have no profile pic">
+        
                 <div>
-                    <a href="" class="btn btn-primary">Update Profile</a>
+                    <a href="{% url 'edit_profile' %}" class="btn btn-primary">Update Profile</a>
                 </div>
                 <hr>
 
