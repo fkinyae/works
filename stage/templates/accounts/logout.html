@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load bootstrap4  %}
+{% load static %}
+
+{% block styles %} 
+{% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/login.css' %}"> 
+  {% endblock %}
+
+{% block content %}
+                
+    {% if request.user.is_authenticated %}
+                <div class="loginform">
+                    <form action="" method="POST">{% csrf_token %}
+                        <p>Are you sure you want to log out ?</p>
+                            <button type="submit">Yes, Logout</button>   
+                            
+                    </form>     
+                </div>
+    {% else %}
+                <p>You are not logged in, Would you like to login ?   <a href="{% url 'login' %}">Login</a>  </p>
+    {% endif %}
+{% endblock %}

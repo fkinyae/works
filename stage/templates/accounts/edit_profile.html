@@ -1,0 +1,29 @@
+{% load bootstrap4 %}
+{% load static %}
+
+{% block styles %} 
+{% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/login.css' %}"> 
+  {% endblock %}
+
+  {% block content %}
+  {% include 'navbar.html' %}
+  <div class="signupform">
+      <table>
+        <form method="post">
+            {% csrf_token %}
+           
+              {{form.as_table}}
+              <tr>
+                  <td>
+                    <button type="submit" value="save" class="btn btn-primary">Update</button>
+                  </td>
+              </tr>  
+            <div>
+          </form>
+
+      </table>
+  
+</div>
+  {% endblock %}
+

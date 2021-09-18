@@ -1,0 +1,32 @@
+{% load bootstrap4  %}
+{% load static %}
+
+{% block styles %} 
+{% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/login.css' %}"> 
+  {% endblock %}
+
+{% block content %}
+{% include "navbar.html" %}
+                
+                <div class="loginform">
+                    <form action="" method="POST">{% csrf_token %}
+                        <div class="container">   
+                            <center><h5 style="font-weight: bold;">The Kin-Stage Insta</h5> </center>   
+                            
+                            <label>Username : </label>   
+                            <input type="text" placeholder="Enter Username" name="username" required>  
+                            <label>Password : </label>   
+                            <input type="password" placeholder="Enter Password" name="password" required>  
+                            <button type="submit">Login</button>   
+                            Forgot <a href="#"> password? </a>   
+                            <input type="checkbox" checked="checked"> Remember me   
+                            <div>
+                            Don't Have an Account? <a href="{% url 'signup' %}">SignUp</a>   
+                            </div>
+
+                        </div>   
+                    </form>     
+                </div>
+
+{% endblock %}

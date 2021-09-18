@@ -1,0 +1,33 @@
+{% load bootstrap4 %}
+{% load static %}
+
+{% block styles %} 
+{% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/login.css' %}"> 
+  {% endblock %}
+
+  {% block content %}
+  <div class="signupform">
+  <form method="post">
+    {% csrf_token %}
+    <div class="container">   
+      <center><h5 style="font-weight: bold;">The Kin-Stage Insta</h5> </center>   
+
+      {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+      {% endfor %}
+
+    <button type="submit">Sign up</button>
+    <div>
+  </form>
+</div>
+  {% endblock %}
+

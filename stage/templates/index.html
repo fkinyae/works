@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block styles %} 
+{% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/index.css' %}"> 
+  {% endblock %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+                    <div class="container">
+                      <p>Welcome</p>
+                                    
+                     
+                    </div>
+
+{% endblock %}
+
