@@ -28,11 +28,12 @@
         </div>
         {% if user.is_authenticated %}
         <div class="navbar-nav ml-auto">
+            <span><a href="{% url 'projects' %}" class="btn btn-primary" style="color: white; margin-right: 10px;">Submit Project</a>
+            </span>
             <span style="color: white; float: right;"> {{user.username}}</span>   
-
+            
         </div>
-        {% else %}
-           
+        {% else %}     
         <div class="navbar-nav ml-auto">
             <a href="{% url 'signup' %}" class="btn btn-primary" style="color: white; margin-right: 10px;">Register</a>
             <a href="{% url 'login' %}" class="btn btn-primary" style="color: white;">Login</a>
@@ -58,7 +59,6 @@
 
 </nav>
 {% if user.is_authenticated  %}
-<small class="text-center;" style="color: greenyellow; margin-left: 30%;">Hi {{user.username}}, Welcome & enjoy the experience</small>
 
 {% else %}
 <small class="text-center;" style="color: greenyellow; margin-left: 30%;">please signup to our site so as to enjoy all features</small>
