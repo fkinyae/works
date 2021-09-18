@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'stage',
     'bootstrap4',
     'tinymce',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -144,6 +145,7 @@ EMAIL_PORT = 587
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_PROFILE_MODULE = 'accounts.Profile'
 
 
 LOGIN_REDIRECT_URL = '/'
