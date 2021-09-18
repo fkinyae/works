@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('login/', views.login_view, name='login'),
-    path('', views.welcome, name='welcome'),
+    path('', views.view_projects, name='welcome'),
     path('signup/', views.usersignup, name='signup'),
     path('activate/<uidb64>/<token>/',
         views.activate_account, name='activate'),
@@ -16,6 +16,8 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('profile/',views.view_profile, name='profile'),   
     path('edit_profile/',views.edit_profile,name='edit_profile'),
+    path('projects/',views.new_project,name='projects'),
+
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
