@@ -85,6 +85,13 @@ def logout_view(request):
     if request.method == "POST":
         logout(request)
         
+def view_profile(request):
+    context = {
+        'user':request.user
+    }    
+    return render (request, "accounts/profile.html", context)    
+        
+        
         
 
        
