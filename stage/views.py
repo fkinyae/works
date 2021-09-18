@@ -10,7 +10,7 @@ from django.urls import reverse_lazy
 from django.urls import reverse
 from django.urls.base import reverse
 from django.views.generic.base import TemplateView
-from .forms import UserSignUpForm,UserUpdateForm,ProfileUpdateForm
+from .forms import UserSignUpForm,UserUpdateForm,ProfileUpdateForm,ProjectForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -22,7 +22,7 @@ from django.utils.encoding import force_bytes,force_text,DjangoUnicodeDecodeErro
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.views.generic.edit import UpdateView
-from .models import Profile
+from .models import Profile,Project
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class edit_profile(generic.UpdateView):
@@ -30,9 +30,7 @@ class edit_profile(generic.UpdateView):
     template='accounts/edit_profile.html'
     fields=['bio','profile_pic','twitter_url']
     success_url=reverse_lazy('')
-         
-def welcome(request):
-    return render(request, "index.html")
+
 
 
 def usersignup(request):
@@ -118,15 +116,31 @@ def edit_profile(request):
         "profile_form":profile_form,
         
     }
-    return render (request, "accounts/edit_profile.html",context)   
-
-    
-   
-       
+    return render (request, "accounts/edit_profile.html",context)  
    
 class    PasswordsChangeView(PasswordChangeView):
     form_class = PasswordChangeForm
     success_url = reverse_lazy('welcome')
+    
+@login_required(login_url='/accounts/login/')
+def new_project(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project .user = current_user
+            project .save()
+            return redirect('welcome')
+
+    else:
+        form = ProjectForm()
+    return render(request, 'project.html', {"form": form})    
+
+def view_projects(request):
+    projects=Project.all_projects()
+    form=ProjectForm()
+    return render(request, 'index.html',{"projects":projects,"form":form})
 
 
 
