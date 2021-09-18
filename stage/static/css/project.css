@@ -1,0 +1,11 @@
+.container {
+    background-color:   rgb(48, 76, 85); 
+    color: white;
+}
+
+.projectform {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
