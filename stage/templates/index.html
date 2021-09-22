@@ -16,14 +16,13 @@
 
     <div class="row" style="margin-left: 10px;">
         {% for project in projects %}
-        <div class="card" style="width: 21rem; margin: 15px;">
+        <div class="card" style="width: 18rem; margin: 10px;">
           <img class="card-img-top" src="{{project.photo.url}}" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title" style="font-weight: bold;">{{project.title}}</h5><span> <a class="btn btn-info" href="{{project.url}}" target="_blank">Visit Site</a> </span><span> <a class="btn btn-info" href="" target="_blank">Rate</a> </span>
+            <h5 class="card-title" style="font-weight: bold;">{{project.title}}</h5><span> <a class="btn btn-info" href="{{project.url}}" target="_blank">Visit Site</a> </span>{% if user.is_authenticated %}<span> <a class="btn btn-info" href="{% url 'rate_projects'  project.id %}" >Rate</a> </span>{% endif %}
             <p class="card-text">{{project.description}}</p>
             <p class="card-text">By: {{project.user.username}}</p>
             <p class="card-text">Submitted On: {{project.date|date}}</p>
-
 
           </div>
         </div>
