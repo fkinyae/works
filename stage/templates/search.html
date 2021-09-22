@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+ {% load static %}
+
+ {% block styles %}
+ {% bootstrap_css %}
+   <link rel="stylesheet" href="{% static 'css/project.css' %}"> 
+    {% endblock %}
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container">
+
+  <div class="row text-center">
+    {% if projects %}
+      <h5 class="text-center">Found {{ projects|length }} of searched term {{message}}</h5>
+    {% else %}
+      <h2> Found 0 articles for the search term {{message}}</h2>
+    {% endif %}
+
+  </div>
+
+  <div class="row">
+
+  {% if projects %}
+
+      <div class="row" style="margin-left: 10px; color: black;">
+          {% for project in projects %}
+          <div class="card" style="width: 18rem; margin: 10px; color: black;">
+            <img class="card-img-top" src="{{project.photo.url}}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title" style="font-weight: bold; color: black; ">{{project.title}}</h5><span> <a class="btn btn-info" href="{{project.url}}" target="_blank">Visit Site</a> </span>{% if user.is_authenticated %}<span> <a class="btn btn-info" href="{% url 'rate_projects'  project.id %}" >Rate</a> </span>{% endif %}
+              <p class="card-text">{{project.description}}</p>
+              <p class="card-text">By: {{project.user.username}}</p>
+              <p class="card-text">Submitted On: {{project.date|date}}</p>
+            </div>
+          </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+  </div>
+</div>
+{% endblock %}
