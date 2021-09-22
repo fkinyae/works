@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap');
+
+
 .container {
     background-color:   rgb(48, 76, 85); 
     color: white;
+    font-family: 'Nanum Myeongjo', serif;
+
 }
 
 .projectform {
@@ -8,4 +13,8 @@
     align-items: center;
     justify-content: center;
 
+}
+
+body {
+    font-family: 'Nanum Myeongjo', serif;
 }
