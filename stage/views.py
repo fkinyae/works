@@ -1,7 +1,7 @@
 from decimal import Context
 from django.contrib.auth import forms
-from django.shortcuts import render,redirect
-from  django.http import HttpResponse
+from django.shortcuts import render,redirect,get_object_or_404
+from  django.http import HttpResponse,Http404
 from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login, logout
@@ -10,7 +10,7 @@ from django.urls import reverse_lazy
 from django.urls import reverse
 from django.urls.base import reverse
 from django.views.generic.base import TemplateView
-from .forms import UserSignUpForm,UserUpdateForm,ProfileUpdateForm,ProjectForm
+from .forms import UserSignUpForm,UserUpdateForm,ProfileUpdateForm,ProjectForm,RatingForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -22,7 +22,7 @@ from django.utils.encoding import force_bytes,force_text,DjangoUnicodeDecodeErro
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.views.generic.edit import UpdateView
-from .models import Profile,Project
+from .models import Profile,Project,Rate
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class edit_profile(generic.UpdateView):
@@ -141,6 +141,63 @@ def view_projects(request):
     projects=Project.all_projects()
     form=ProjectForm()
     return render(request, 'index.html',{"projects":projects,"form":form})
+
+
+@login_required(login_url='/accounts/login/')
+def rate_project(request,id):
+    try:
+        project = Project.objects.get(pk = id)
+        ratings=Rate.get_ratings()
+        
+    except Project.DoesNotExist:
+        raise Http404()
+    current_user = request.user
+    if request.method == 'POST':
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            design = form.cleaned_data['design']
+            usability = form.cleaned_data['usability']
+            content = form.cleaned_data['content']
+            rate = form.save(commit=False)
+            rate.project = project
+            rate.user = current_user
+            rate.design = design
+            rate.usability = usability
+            rate.content = content
+            rate.save()
+            
+    all_ratings=Rate.objects.filter( project = id)
+            
+    designs = [d.design for d in all_ratings]
+    design_average = sum(designs) / len(designs)
+    
+    usabilities = [u.usability for u in all_ratings]
+    usability_average = sum(usabilities) / len(usabilities)
+    
+    contents = [c.content for c in all_ratings]
+    content_average = sum(contents) / len(contents)
+    
+    score=(content_average + usability_average + design_average) / 3
+    percent=score / 10 * 100
+
+
+            
+            
+    form = RatingForm()
+    return render(request,'rate.html',locals())
+    
+    
+    
+def search_results(request):
+       if 'project' in request.GET and request.GET["project"]:
+              search_term=request.GET.get("project")
+              searched_projects =Project.search_project(search_term)
+              message=f"{search_term}"
+              
+              return render(request, 'search.html',{"message":message,"projects": searched_projects })
+       else:
+              message="You haven't searched for any term"
+              return render(request,'search.html',{"message":message})   
 
 
 
