@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.models import User
 from django.views import generic
 from django.views.generic import UpdateView
-from .models import Profile,Project
+from .models import Profile,Project, Rate
 
 
 class UserSignUpForm(UserCreationForm):
@@ -38,7 +38,12 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model=Project  
         fields = ['title','url','description','photo']     
-
+        
+class RatingForm(forms.ModelForm):
+    class Meta:
+        model=Rate 
+        fields = ['design','usability','content']       
+ 
         
       
         
