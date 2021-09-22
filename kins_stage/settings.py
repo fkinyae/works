@@ -34,8 +34,6 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'stage',
     'bootstrap4',
-    'tinymce',
-    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
